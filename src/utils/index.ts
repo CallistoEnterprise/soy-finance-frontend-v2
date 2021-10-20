@@ -4,7 +4,7 @@ import { AddressZero } from '@ethersproject/constants'
 import { JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
 import { BigNumber } from '@ethersproject/bignumber'
 import { ChainId, JSBI, Percent, Token, CurrencyAmount, Currency, ETHER } from '@soy-libs/sdk2'
-import PMoonRouterABI from '../config/abi/pmoonRouter.json'
+import SoyRouterABI from '../config/abi/soyRouter.json'
 import { ROUTER_ADDRESS } from '../config/constants'
 import { BASE_CALLISTO_SCAN_URLS } from '../config'
 import { TokenAddressMap } from '../state/lists/hooks'
@@ -92,7 +92,7 @@ export function getContract(address: string, ABI: any, library: Web3Provider, ac
 
 // account is optional
 export function getRouterContract(_: number, library: Web3Provider, account?: string): Contract {
-  return getContract(ROUTER_ADDRESS, PMoonRouterABI, library, account)
+  return getContract(ROUTER_ADDRESS, SoyRouterABI, library, account)
 }
 
 export function escapeRegExp(string: string): string {

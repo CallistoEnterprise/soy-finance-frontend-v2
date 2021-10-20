@@ -1,7 +1,7 @@
 import BigNumber from 'bignumber.js'
 import poolsConfig from 'config/constants/pools'
 import sousChefABI from 'config/abi/sousChef.json'
-import pmoonABI from 'config/abi/pmoon.json'
+import soyABI from 'config/abi/soy.json'
 import wmaticABI from 'config/abi/weth.json'
 import multicall from 'utils/multicall'
 import { getAddress, getWmaticAddress } from 'utils/addressHelpers'
@@ -57,7 +57,7 @@ export const fetchPoolsTotalStaking = async () => {
     }
   })
 
-  const nonBnbPoolsTotalStaked = await multicall(pmoonABI, callsNonBnbPools)
+  const nonBnbPoolsTotalStaked = await multicall(soyABI, callsNonBnbPools)
   const bnbPoolsTotalStaked = await multicall(wmaticABI, callsBnbPools)
 
   return [
