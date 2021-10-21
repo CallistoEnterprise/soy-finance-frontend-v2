@@ -65,7 +65,7 @@ const tokens = {
       20729: '0xF5AD6F6EDeC824C7fD54A66d241a227F6503aD3a',
     },
     decimals: 18,
-    projectLink: 'https://explorer.callisto.network/token/0xA648A7824780780d272b6811ce8186a11b9c6591',
+    projectLink: 'https://callisto.network/',
   },
   busdt:{
     symbol: 'BUSDT',
@@ -74,7 +74,7 @@ const tokens = {
       20729: '0xbf6c50889d3a620eb42C0F188b65aDe90De958c4',
     },
     decimals: 18,
-    projectLink: 'https://explorer.callisto.network/token/0xbf6c50889d3a620eb42C0F188b65aDe90De958c4',
+    projectLink: 'https://explorer.callisto.network/address/0xbf6c50889d3a620eb42C0F188b65aDe90De958c4/transactions',
   },
   cloe:{
     symbol: 'CLOE',
@@ -83,7 +83,7 @@ const tokens = {
       20729: '0x1eAa43544dAa399b87EEcFcC6Fa579D5ea4A6187',
     },
     decimals: 18,
-    projectLink: 'https://callisto.enterprise/',
+    projectLink: 'https://callistoenterprise.com/',
   },
   cyt:{
     symbol: 'CYT',
@@ -92,7 +92,7 @@ const tokens = {
       20729: '0x6182d2cd59227c20B486a53976dcEeAF38e76Eed',
     },
     decimals: 18,
-    projectLink: 'https://callisto.enterprise/',
+    projectLink: 'https://explorer.callisto.network/address/0x6182d2cd59227c20B486a53976dcEeAF38e76Eed/transactions',
   },
   ccbnb:{
     symbol: 'ccBNB',
@@ -101,7 +101,7 @@ const tokens = {
       20729: '0xCC78D0A86B0c0a3b32DEBd773Ec815130F9527CF',
     },
     decimals: 18,
-    projectLink: 'https://callisto.enterprise/',
+    projectLink: 'https://explorer.callisto.network/address/0xCC78D0A86B0c0a3b32DEBd773Ec815130F9527CF/transactions',
   },
   cceth:{
     symbol: 'ccETH',
@@ -110,7 +110,7 @@ const tokens = {
       20729: '0xcC00860947035a26Ffe24EcB1301ffAd3a89f910',
     },
     decimals: 18,
-    projectLink: 'https://callisto.enterprise/',
+    projectLink: 'https://explorer.callisto.network/address/0xcC00860947035a26Ffe24EcB1301ffAd3a89f910/transactions',
   },
 }
 
