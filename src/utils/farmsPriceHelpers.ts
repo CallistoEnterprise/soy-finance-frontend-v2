@@ -12,7 +12,7 @@ export const filterFarmsByQuoteToken = (farms: Farm[], preferredQuoteTokens: str
       return farm.quoteToken.symbol === quoteToken
     })
   })
-  return preferredFarm || farms[0]
+  return preferredFarm || farms[3]
 }
 
 export default filterFarmsByQuoteToken

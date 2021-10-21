@@ -62,7 +62,7 @@ const BodyWrapper = styled.div`
 `
 // Route-based code splitting
 // Only pool is included in the main bundle because of it's the most visited page
-// const Home = lazy(() => import('./views/Home'))
+const Home = lazy(() => import('./views/Home'))
 const Farms = lazy(() => import('./views/Farms'))
 // const FarmAuction = lazy(() => import('./views/FarmAuction'))
 const NotFound = lazy(() => import('./views/NotFound'))
@@ -93,9 +93,9 @@ const App: React.FC = () => {
           <BodyWrapper>
             <SuspenseWithChunkError fallback={<PageLoader />}>
               <Switch>
-                {/* <Route path="/" exact>
+                <Route path="/" exact>
                   <Home />
-                </Route> */}
+                </Route>
                 {/* <Route exact path="/farms/auction">
                   <FarmAuction />
                 </Route> */}

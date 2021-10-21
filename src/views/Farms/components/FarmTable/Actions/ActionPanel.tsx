@@ -51,7 +51,7 @@ const Container = styled.div<{ expanded }>`
           ${collapseAnimation} 300ms linear forwards
         `};
   overflow: hidden;
-  background: ${({ theme }) => theme.colors.background};
+  background: ${({ theme }) => theme.colors.backgroundAlt};
   display: flex;
   width: 100%;
   flex-direction: column-reverse;
@@ -150,7 +150,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
   })
   const lpAddress = getAddress(farm.lpAddresses)
   const polygon = getCallistoExpLink(lpAddress, 'address')
-  const info = `https://soyfinance.info/pool/${lpAddress}`
+  // const info = `https://soyfinance.info/pool/${lpAddress}`
 
   return (
     <Container expanded={expanded}>
@@ -163,7 +163,7 @@ const ActionPanel: React.FunctionComponent<ActionPanelProps> = ({
           </StakeContainer>
         )}
         <StyledLinkExternal href={polygon}>{t('View Contract')}</StyledLinkExternal>
-        <StyledLinkExternal href={info}>{t('See Pair Info')}</StyledLinkExternal>
+        {/* <StyledLinkExternal href={info}>{t('See Pair Info')}</StyledLinkExternal> */}
         <TagsContainer>
           {farm.isCommunity ? <CommunityTag /> : <CoreTag />}
           {dual ? <DualTag /> : null}

@@ -34,6 +34,7 @@ interface StackedActionProps extends FarmWithStakedValue {
 const Staked: React.FunctionComponent<StackedActionProps> = ({
   pid,
   lpSymbol,
+  localFarmAddresses,
   lpAddresses,
   quoteToken,
   token,
@@ -86,7 +87,7 @@ const Staked: React.FunctionComponent<StackedActionProps> = ({
   )
   const lpContract = useERC20(lpAddress)
   const dispatch = useAppDispatch()
-  const { onApprove } = useApproveFarm(lpContract)
+  const { onApprove } = useApproveFarm(lpContract, getAddress(localFarmAddresses))
 
   const handleApprove = useCallback(async () => {
     try {

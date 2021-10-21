@@ -35,7 +35,7 @@
     "@binance-chain/bsc-connector": "^1.0.0",
     "@ethersproject/experimental": "^5.0.1",
     "@reduxjs/toolkit": "^1.6.1",
-    "@soy-libs/sdk2": "^0.0.2",
+    "@soy-libs/sdk2": "^0.0.3",
     "@soy-libs/uikit2": "^0.1.6",
     "@types/multicodec": "^1.0.0",
     "@types/node": "^13.13.5",

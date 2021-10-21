@@ -1,9 +1,11 @@
 import BigNumber from 'bignumber.js'
 import masterchefABI from 'config/abi/masterchef.json'
+import localFarmABI from 'config/abi/localFarm.json'
 import erc20 from 'config/abi/erc20.json'
-import { getAddress, getMasterChefAddress } from 'utils/addressHelpers'
+import { getAddress, getLocalFarmAddress, getMasterChefAddress } from 'utils/addressHelpers'
 import { BIG_TEN, BIG_ZERO } from 'utils/bigNumber'
-import multicall from 'utils/multicall'
+import {multicall3} from 'utils/multicall'
+// import { getMasterchefContract } from 'utils/contractHelpers'
 import { Farm, SerializedBigNumber } from '../types'
 
 type PublicFarmData = {
@@ -19,8 +21,9 @@ type PublicFarmData = {
 }
 
 const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
-  const { pid, lpAddresses, token, quoteToken } = farm
+  const { lpAddresses, token, quoteToken, localFarmAddresses } = farm
   const lpAddress = getAddress(lpAddresses)
+  // const globalFarmContract = getMasterchefContract()
 
   const calls = [
     // Balance of token in the LP contract
@@ -39,7 +42,7 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
     {
       address: lpAddress,
       name: 'balanceOf',
-      params: [getMasterChefAddress()],
+      params: [getLocalFarmAddress(localFarmAddresses)],
     },
     // Total supply of LP tokens
     {
@@ -58,8 +61,7 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
     },
   ]
 
-  const [tokenBalanceLP, quoteTokenBalanceLP, lpTokenBalanceMC, lpTotalSupply, tokenDecimals, quoteTokenDecimals] =
-    await multicall(erc20, calls)
+  const [tokenBalanceLP, quoteTokenBalanceLP, lpTokenBalanceMC, lpTotalSupply, tokenDecimals, quoteTokenDecimals] = await multicall3(erc20, calls)
 
   // Ratio in % of LP tokens that are staked in the MC, vs the total number in circulation
   const lpTokenRatio = new BigNumber(lpTokenBalanceMC).div(new BigNumber(lpTotalSupply))
@@ -74,26 +76,25 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
 
   // Total staked in LP, in quote token value
   const lpTotalInQuoteToken = quoteTokenAmountMc.times(new BigNumber(2))
-
-
   // Only make masterchef calls if farm has pid
-  const [info, totalAllocPoint] =
-    pid || pid === 0
-      ? await multicall(masterchefABI, [
-          {
-            address: getMasterChefAddress(),
-            name: 'poolInfo',
-            params: [pid],
-          },
-          {
-            address: getMasterChefAddress(),
-            name: 'totalAllocPoint',
-          },
-        ])
-      : [null, null]
+  const [allocPoint] = await multicall3(localFarmABI, [
+      {
+        address: getLocalFarmAddress(localFarmAddresses),
+        name: 'getAllocationX1000',
+        params: []
+      }
+    ])
+  
+  const [totalAllocPoint]= await multicall3(masterchefABI, [
+    {
+      address: getMasterChefAddress(),
+      name: 'totalMultipliers'
+    }
+  ])
 
-  const allocPoint = info ? new BigNumber(info.allocPoint?._hex) : BIG_ZERO
-  const poolWeight = totalAllocPoint ? allocPoint.div(new BigNumber(totalAllocPoint)) : BIG_ZERO
+  const bigAlloc = new BigNumber(allocPoint[0].toString())
+  const poolWeight = totalAllocPoint[0] ? bigAlloc.div(new BigNumber(totalAllocPoint[0].toString())) : BIG_ZERO
+  const multi = (new BigNumber(allocPoint[0].toString())).div(new BigNumber(1000));
 
   return {
     tokenAmountMc: tokenAmountMc.toJSON(),
@@ -104,7 +105,7 @@ const fetchFarm = async (farm: Farm): Promise<PublicFarmData> => {
     lpTotalInQuoteToken: lpTotalInQuoteToken.toJSON(),
     tokenPriceVsQuote: quoteTokenAmountTotal.div(tokenAmountTotal).toJSON(),
     poolWeight: poolWeight.toJSON(),
-    multiplier: `${allocPoint.div(100).toString()}X`,
+    multiplier: `${multi.toString()}X`,
   }
 }
 

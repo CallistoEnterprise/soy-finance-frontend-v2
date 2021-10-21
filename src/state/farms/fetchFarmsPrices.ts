@@ -9,7 +9,7 @@ const getFarmFromTokenSymbol = (farms: Farm[], tokenSymbol: string, preferredQuo
   return filteredFarm
 }
 
-const getFarmBaseTokenPrice = (farm: Farm, quoteTokenFarm: Farm, bnbPriceBusd: BigNumber): BigNumber => {
+const getFarmBaseTokenPrice = (farm: Farm, quoteTokenFarm: Farm, cloPriceBusd: BigNumber): BigNumber => {
   const hasTokenPriceVsQuote = Boolean(farm.tokenPriceVsQuote)
 
   if (farm.quoteToken.symbol === 'BUSDT') {
@@ -17,7 +17,7 @@ const getFarmBaseTokenPrice = (farm: Farm, quoteTokenFarm: Farm, bnbPriceBusd: B
   }
 
   if (farm.quoteToken.symbol === 'WCLO') {
-    return hasTokenPriceVsQuote ? bnbPriceBusd.times(farm.tokenPriceVsQuote) : BIG_ZERO
+    return hasTokenPriceVsQuote ? cloPriceBusd.times(farm.tokenPriceVsQuote) : BIG_ZERO
   }
 
   // We can only calculate profits without a quoteTokenFarm for BUSDT/CLO farms
@@ -31,7 +31,7 @@ const getFarmBaseTokenPrice = (farm: Farm, quoteTokenFarm: Farm, bnbPriceBusd: B
   // i.e. for farm PNT - pBTC we use the pBTC farm's quote token - CLO, (pBTC - CLO)
   // from the CLO - pBTC price, we can calculate the PNT - USDC price
   if (quoteTokenFarm.quoteToken.symbol === 'WCLO') {
-    const quoteTokenInBusd = bnbPriceBusd.times(quoteTokenFarm.tokenPriceVsQuote)
+    const quoteTokenInBusd = cloPriceBusd.times(quoteTokenFarm.tokenPriceVsQuote)
     return hasTokenPriceVsQuote && quoteTokenInBusd
       ? new BigNumber(farm.tokenPriceVsQuote).times(quoteTokenInBusd)
       : BIG_ZERO
@@ -73,14 +73,13 @@ const getFarmQuoteTokenPrice = (farm: Farm, quoteTokenFarm: Farm, bnbPriceBusd: 
 }
 
 const fetchFarmsPrices = async (farms) => {
-  const cloUsdcFarm = farms.find((farm: Farm) => farm.pid === 2)
-  
-  const cloPriceUsdc = cloUsdcFarm.tokenPriceVsQuote ? BIG_ONE.div(cloUsdcFarm.tokenPriceVsQuote) : BIG_ZERO
+  const cloBusdtFarm = farms.find((farm: Farm) => farm.pid === 3)
+  const cloPriceBusdt = cloBusdtFarm.tokenPriceVsQuote ? BIG_ONE.div(cloBusdtFarm.tokenPriceVsQuote) : BIG_ZERO
   
   const farmsWithPrices = farms.map((farm) => {
     const quoteTokenFarm = getFarmFromTokenSymbol(farms, farm.quoteToken.symbol)
-    const baseTokenPrice = getFarmBaseTokenPrice(farm, quoteTokenFarm, cloPriceUsdc)
-    const quoteTokenPrice = getFarmQuoteTokenPrice(farm, quoteTokenFarm, cloPriceUsdc)
+    const baseTokenPrice = getFarmBaseTokenPrice(farm, quoteTokenFarm, cloPriceBusdt)
+    const quoteTokenPrice = getFarmQuoteTokenPrice(farm, quoteTokenFarm, cloPriceBusdt)
     const token = { ...farm.token, usdcPrice: baseTokenPrice.toJSON() }
     const quoteToken = { ...farm.quoteToken, usdcPrice: quoteTokenPrice.toJSON() }
     return { ...farm, token, quoteToken }

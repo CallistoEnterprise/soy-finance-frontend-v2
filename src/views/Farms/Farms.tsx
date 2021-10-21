@@ -26,7 +26,6 @@ import FarmTabButtons from './components/FarmTabButtons'
 import { RowProps } from './components/FarmTable/Row'
 import ToggleView from './components/ToggleView/ToggleView'
 import { DesktopColumnSchema, ViewMode } from './components/types'
-import useRewardBlockCount from './hooks/useRewardBlockCount'
 
 const ControlContainer = styled.div`
   display: flex;
@@ -121,7 +120,7 @@ const Farms: React.FC = () => {
   const { data: farmsLP, userDataLoaded } = useFarms()
   const cakePrice = usePriceCakeBusd()
   const [query, setQuery] = useState('')
-  const [viewMode, setViewMode] = usePersistState(ViewMode.TABLE, { localStorageKey: 'polysafemoon_farm_view' })
+  const [viewMode, setViewMode] = usePersistState(ViewMode.TABLE, { localStorageKey: 'soyfinance_farm_view' })
   const { account } = useWeb3React()
   const [sortOption, setSortOption] = useState('hot')
   const chosenFarmsLength = useRef(0)
@@ -132,7 +131,6 @@ const Farms: React.FC = () => {
 
   usePollFarmsData(isArchived)
 
-  const rewardBlockCount = useRewardBlockCount()
   // Users with no wallet connected should see 0 as Earned amount
   // Connected users should see loading indicator until first userData has loaded
   const userDataReady = !account || (!!account && userDataLoaded)
@@ -165,8 +163,9 @@ const Farms: React.FC = () => {
           return farm
         }
         const totalLiquidity = new BigNumber(farm.lpTotalInQuoteToken).times(farm.quoteToken.usdcPrice)
+
         const { cakeRewardsApr, lpRewardsApr } = isActive
-          ? getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity, farm.lpAddresses[ChainId.MAINNET], rewardBlockCount)
+          ? getFarmApr(new BigNumber(farm.poolWeight), cakePrice, totalLiquidity, farm.lpAddresses[ChainId.MAINNET])
           : { cakeRewardsApr: 0, lpRewardsApr: 0 }
 
         return { ...farm, apr: cakeRewardsApr, lpRewardsApr, liquidity: totalLiquidity }
@@ -180,7 +179,7 @@ const Farms: React.FC = () => {
       }
       return farmsToDisplayWithAPR
     },
-    [cakePrice, query, isActive, rewardBlockCount],
+    [cakePrice, query, isActive],
   )
 
   const handleChangeQuery = (event: React.ChangeEvent<HTMLInputElement>) => {

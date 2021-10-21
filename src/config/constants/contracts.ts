@@ -11,7 +11,7 @@ export default {
     20729: '0xD3e1d8Cd225B91d8a3c14D846F0a2b3791157669',
     820: '0x432b2fa31e121E8227a0bAA8f192706b06AeA0b7',
   },
-  multiCall2: {
+  multiCall: {
     820: '0x3c4127A01b75E3741DD40A7a044BC70e3Ed4e77C',
     20729: '',
   },

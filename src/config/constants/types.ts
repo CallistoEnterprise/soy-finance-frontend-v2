@@ -70,6 +70,7 @@ export interface FarmConfig {
   lpAddresses: Address
   token: Token
   quoteToken: Token
+  localFarmAddresses?: Address
   multiplier?: string
   isCommunity?: boolean
   dual?: {

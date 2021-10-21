@@ -29,15 +29,15 @@ export const usePollFarmsData = (includeArchive = false) => {
 
 /**
  * Fetches the "core" farm data used globally
- * 251 = SOY-CLO LP
- * 252 = USDT-CLO LP
+ * 1 = SOY-CLO LP
+ * 3 = BUSDT-CLO LP
  */
 export const usePollCoreFarmData = () => {
   const dispatch = useAppDispatch()
   const { fastRefresh } = useRefresh()
 
   useEffect(() => {
-    dispatch(fetchFarmsPublicDataAsync([1, 2]))
+    dispatch(fetchFarmsPublicDataAsync([1, 3]))
   }, [dispatch, fastRefresh])
 }
 
@@ -94,8 +94,8 @@ export const useLpTokenPrice = (symbol: string) => {
 // /!\ Deprecated , use the USDC hook in /hooks
 
 export const usePriceBnbBusd = (): BigNumber => {
-  const cloUsdcFarm = useFarmFromPid(2)
-  return new BigNumber(cloUsdcFarm.quoteToken.usdcPrice)
+  const cloBusdtFarm = useFarmFromPid(3)
+  return new BigNumber(cloBusdtFarm.quoteToken.usdcPrice)
 }
 
 export const usePriceCakeBusd = (): BigNumber => {

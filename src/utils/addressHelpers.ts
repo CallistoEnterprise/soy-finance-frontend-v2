@@ -14,6 +14,9 @@ export const getPmoonAddress = () => {
 export const getMasterChefAddress = () => {
   return getAddress(addresses.masterChef)
 }
+export const getLocalFarmAddress = (farmAddresses) => {
+  return getAddress(farmAddresses)
+}
 export const getSousChefAddress = () => {
   return getAddress(addresses.sousChef)
 }
@@ -21,7 +24,7 @@ export const getMaticStakingAddress = () => {
   return getAddress(addresses.maticStaking)
 }
 export const getMulticallAddress = () => {
-  return getAddress(addresses.multiCall2)
+  return getAddress(addresses.multiCall)
 }
 export const getWmaticAddress = () => {
   return getAddress(tokens.wclo.address)

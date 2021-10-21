@@ -28,7 +28,8 @@ import styled from 'styled-components'
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  // justify-content: center;
+  /* justify-content: center; */
+  padding-top: 100px;
   align-items: center;
   position: relative;
   width: 100%;
@@ -106,19 +107,31 @@ const Wrapper = styled.div`
 //   }
 // `
 
-// const Heading = styled.p`
-//   color: #9A6AFF;
-//   font-weight: 600;
-//   font-size: 64px;
-//   margin-bottom: 20px;
-//   @media screen and (max-width: 610px) {
-//     font-size: 44px;
-//   }
-//   @media screen and (max-width: 470px) {
-//     font-size: 34px;
-//   }
-// `
+const Heading = styled.p`
+  color: #9A6AFF;
+  font-weight: 600;
+  font-size: 64px;
+  margin-bottom: 20px;
+  @media screen and (max-width: 610px) {
+    font-size: 44px;
+  }
+  @media screen and (max-width: 470px) {
+    font-size: 34px;
+  }
+`
 
+const Text = styled.p`
+  color: #9A6AFF;
+  font-weight: 400;
+  font-size: 44px;
+  margin-top: 20px;
+  @media screen and (max-width: 610px) {
+    font-size: 34px;
+  }
+  @media screen and (max-width: 470px) {
+    font-size: 24px;
+  }
+`
 // const StyledDiv = styled.div`
 //   width: 100%;
 //   padding: 30px 20%;
@@ -188,6 +201,10 @@ const Home: React.FC = () => {
 
   return (
     <Wrapper>
+      <Heading >
+          SoyFinance
+        </Heading>
+        <Text>COMMING SOON!</Text>
       {/* <ImageCon>
         <ImgLogo src={Assets.logo} alt="logo" />
         <ImgText src={Assets.logoTxt} alt="logoText" />
@@ -195,7 +212,7 @@ const Home: React.FC = () => {
       </ImageCon>
       <Hero1>
         <Heading >
-          {t('PolysafemoonDEX')}
+          {t('SoyFinance')}
         </Heading>
         <Text>{t('The #1 AMM and yield farm on Polygon Network.')}</Text>
       </Hero1>

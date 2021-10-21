@@ -1,6 +1,6 @@
 import { useEffect, useState, useCallback } from 'react'
 import BigNumber from 'bignumber.js'
-import { POLYGON_BLOCK_TIME } from 'config'
+import { CALLISTO_BLOCK_TIME } from 'config'
 import { Ifo, IfoStatus, PoolIds } from 'config/constants/types'
 import { useBlock } from 'state/block/hooks'
 import { useLpTokenPrice } from 'state/farms/hooks'
@@ -59,9 +59,9 @@ const useGetPublicIfoData = (ifo: Ifo): PublicIfoData => {
     setState((prev) => ({
       status,
       blocksRemaining,
-      secondsUntilStart: (startBlockNum - currentBlock) * POLYGON_BLOCK_TIME,
+      secondsUntilStart: (startBlockNum - currentBlock) * CALLISTO_BLOCK_TIME,
       progress,
-      secondsUntilEnd: blocksRemaining * POLYGON_BLOCK_TIME,
+      secondsUntilEnd: blocksRemaining * CALLISTO_BLOCK_TIME,
       startBlockNum,
       endBlockNum,
       currencyPriceInUSD: null,

@@ -1,5 +1,6 @@
 import BigNumber from 'bignumber.js'
-import { SOY_PER_BLOCK } from 'config'
+// import { SOY_PER_BLOCK } from 'config'
+import { REWARD_TOKENS_PER_YEAR } from 'config'
 import lpAprs from 'config/constants/lpAprs.json'
 
 /**
@@ -31,14 +32,14 @@ export const getPoolApr = (
  * @param poolLiquidityUsd Total pool liquidity in USD
  * @returns
  */
-export const getFarmApr = (
+export const 
+getFarmApr = (
   poolWeight: BigNumber,
   cakePriceUsd: BigNumber,
   poolLiquidityUsd: BigNumber,
   farmAddress: string,
-  rewardBlockCount: BigNumber
 ): { cakeRewardsApr: number; lpRewardsApr: number } => {
-  const yearlyCakeRewardAllocation = rewardBlockCount.times(poolWeight).times(SOY_PER_BLOCK)
+  const yearlyCakeRewardAllocation = REWARD_TOKENS_PER_YEAR.times(poolWeight)
   const cakeRewardsApr = yearlyCakeRewardAllocation.times(cakePriceUsd).div(poolLiquidityUsd).times(100)
   let cakeRewardsAprAsNumber = null
   if (!cakeRewardsApr.isNaN() && cakeRewardsApr.isFinite()) {
