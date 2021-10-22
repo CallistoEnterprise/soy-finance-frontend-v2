@@ -32,8 +32,7 @@ export const getPoolApr = (
  * @param poolLiquidityUsd Total pool liquidity in USD
  * @returns
  */
-export const 
-getFarmApr = (
+export const getFarmApr = (
   poolWeight: BigNumber,
   cakePriceUsd: BigNumber,
   poolLiquidityUsd: BigNumber,
@@ -41,11 +40,14 @@ getFarmApr = (
 ): { cakeRewardsApr: number; lpRewardsApr: number } => {
   const yearlyCakeRewardAllocation = REWARD_TOKENS_PER_YEAR.times(poolWeight)
   const cakeRewardsApr = yearlyCakeRewardAllocation.times(cakePriceUsd).div(poolLiquidityUsd).times(100)
+  // console.log("cakeRewardsApr ::", cakeRewardsApr, cakePriceUsd, poolLiquidityUsd)
+  // console.log(poolWeight, cakeRewardsApr,yearlyCakeRewardAllocation, cakePriceUsd, poolLiquidityUsd, "<======")
   let cakeRewardsAprAsNumber = null
   if (!cakeRewardsApr.isNaN() && cakeRewardsApr.isFinite()) {
     cakeRewardsAprAsNumber = cakeRewardsApr.toNumber()
   }
   const lpRewardsApr = lpAprs[farmAddress?.toLocaleLowerCase()] ?? 10
+  // console.log(cakeRewardsAprAsNumber, lpRewardsApr)
   return { cakeRewardsApr: cakeRewardsAprAsNumber, lpRewardsApr }
 }
 

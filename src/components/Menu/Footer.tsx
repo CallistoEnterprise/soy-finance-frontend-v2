@@ -16,17 +16,20 @@ const Wrapper = styled.div`
     flex-direction: row;
   }
 `
-const ButtonMenuItem = styled.div`
+const ButtonMenuItem = styled.a`
   background-color: rgba(165, 196, 55, .65);;
   border-radius: 20px;
   padding: 15px 30px;
   color: white;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 const Footer = () => {
   return (
     <Wrapper>
       <Flex flexDirection={['column', 'column', 'row']} alignItems="center">
-        <ButtonMenuItem>V2</ButtonMenuItem>
+        <ButtonMenuItem href="https://v1.soy.finance/" target="_blank">V1</ButtonMenuItem>
       </Flex>
     </Wrapper>
   )

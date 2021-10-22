@@ -85,15 +85,15 @@ const tokens = {
     decimals: 18,
     projectLink: 'https://callistoenterprise.com/',
   },
-  cyt:{
-    symbol: 'CYT',
-    address: {
-      820: '0x6182d2cd59227c20B486a53976dcEeAF38e76Eed',
-      20729: '0x6182d2cd59227c20B486a53976dcEeAF38e76Eed',
-    },
-    decimals: 18,
-    projectLink: 'https://explorer.callisto.network/address/0x6182d2cd59227c20B486a53976dcEeAF38e76Eed/transactions',
-  },
+  // cyt:{
+  //   symbol: 'CYT',
+  //   address: {
+  //     820: '0x6182d2cd59227c20B486a53976dcEeAF38e76Eed',
+  //     20729: '0x6182d2cd59227c20B486a53976dcEeAF38e76Eed',
+  //   },
+  //   decimals: 18,
+  //   projectLink: 'https://explorer.callisto.network/address/0x6182d2cd59227c20B486a53976dcEeAF38e76Eed/transactions',
+  // },
   ccbnb:{
     symbol: 'ccBNB',
     address: {

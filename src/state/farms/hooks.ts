@@ -7,6 +7,7 @@ import { BIG_ZERO } from 'utils/bigNumber'
 import { getBalanceAmount } from 'utils/formatBalance'
 import { farmsConfig } from 'config/constants'
 import useRefresh from 'hooks/useRefresh'
+import useGetPriceData from 'hooks/useGetPriceData'
 import { fetchFarmsPublicDataAsync, fetchFarmUserDataAsync, nonArchivedFarms } from '.'
 import { State, Farm, FarmsState } from '../types'
 
@@ -99,6 +100,9 @@ export const usePriceBnbBusd = (): BigNumber => {
 }
 
 export const usePriceCakeBusd = (): BigNumber => {
-  const soyCLOFarm = useFarmFromPid(1)
-  return new BigNumber(soyCLOFarm.token.usdcPrice)
+  // const soyCLOFarm = useFarmFromPid(1)
+  const priceData = useGetPriceData()
+  const cloPriceUsd = priceData? Number(priceData.callisto.usd) : undefined
+  // return new BigNumber(soyCLOFarm.token.usdcPrice)
+  return new BigNumber(cloPriceUsd)
 }
